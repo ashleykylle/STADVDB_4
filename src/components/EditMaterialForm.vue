@@ -1,28 +1,44 @@
 <script>
 export default {
+  props: {
+    materialData: {
+      type: Object,
+      required: true
+    }
+  },
   data() {
     return {
-      material: '',
+      material: this.materialData.material,
       materialRules: [
         value => !!value || 'Material is required',
         value => (value && value.length > 3) || 'Material must be at least 3 characters.'
       ],
-      source: '',
+      source: this.materialData.source,
       sourceRules: [
         value => !!value || 'Source is required',
         value => (value && value.length > 3) || 'Source must be at least 3 characters.'
       ],
-      amount: '',
+      amount: this.materialData.amount,
       amountRules: [
         value => !!value || 'Amount is required',
         value => (/^[0-9]/.test(value)) || 'Amount must be a number.'
       ],
-      price: '',
+      price: this.materialData.price.replace(' ₱', ''),
       priceRules: [
         value => !!value || 'Price is required',
         value => (/^\d+(\.\d{1,2})?$/).test(value) || 'Price must be a number.'
-      ]
+      ],
+      editing: false
     };
+  },
+  computed: {
+    formattedPrice() {
+      if (this.editing) {
+        return this.price;
+      } else {
+        return `${this.price} ₱`;
+      }
+    }
   },
   methods: {
     submitMaterialForm() {
@@ -30,7 +46,7 @@ export default {
         material: this.material,
         source: this.source,
         amount: this.amount,
-        price: this.price + " ₱"
+        price: this.formattedPrice
       };
       this.$emit('submitMaterialForm', inputMaterialForm);
     },
@@ -48,10 +64,11 @@ export default {
   }
 };
 </script>
+
 <template>
   <div class="inputForm">
     <v-form fast-fail @submit.prevent="submitMaterialForm">
-      <div>ADDING Materials</div>
+      <div>EDITING Materials</div>
 
       <v-text-field v-model="material" :rules="materialRules" placeholder="Material"></v-text-field>
 
