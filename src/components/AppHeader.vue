@@ -1,18 +1,22 @@
 <template>
      <div class="header">
-          <h1>FabriQuote</h1>
+          <div class="logo"> 
+               <img class="logo" src="@/assets/images/img_logo_fabriquote.svg"> 
+          </div>
           <div class="clickableHeader">
-               <dash_item>Dash Board</dash_item>
-               <dash_item>Quota</dash_item>
-               <dash_item>Material</dash_item>
-               <dash_item>Settings</dash_item>
+               <dash_item><a href="/">Dashboard</a></dash_item>
+               <dash_item><a href="/quota">Quota</a></dash_item>
+               <dash_item><a href="/material">Material</a></dash_item>
+               <dash_item><a href="#">Settings</a></dash_item>
           </div>
      </div>
 </template>
 <style>
-h1 {
+.header div.logo {
      background-color: #355E3B;
-     color: #8A9A5B;
+     display: flex;
+     justify-content: center;
+     padding: 1em;
 }
 .clickableHeader {
     background-color: #BCB88A;
@@ -21,10 +25,19 @@ h1 {
     display: flex;
     place-items: start;
     justify-content: space-evenly;
-  }
+}
+
+.clickableHeader a {
+     color: #464646;
+}
+
+.clickableHeader a:hover {
+     color: #014421;
+     font-weight: bold;
+     background: none;
+}
 
 dash_item {
      display: flex;
-     
 }
 </style>
