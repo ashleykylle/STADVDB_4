@@ -1,9 +1,6 @@
 <script>
      export default {
-     props: ['material', 'source', 'amount', 'price'],
-     setup(props) {
-          console.log(props.title)
-          }
+          props: ['material', 'source', 'amount', 'price'],
      }
 </script>
 <template>
@@ -11,7 +8,7 @@
           <text>{{ material }}</text>
           <text>{{ source }}</text>
           <text>{{ amount }}</text>
-          <text>{{ price }} </text>
+          <text>{{ price }} ₱ </text>
      </div>
 </template>
 <style scoped>

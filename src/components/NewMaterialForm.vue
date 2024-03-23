@@ -30,7 +30,7 @@ export default {
         material: this.material,
         source: this.source,
         amount: this.amount,
-        price: this.price + " ₱"
+        price: this.price
       };
       this.$emit('submitMaterialForm', inputMaterialForm);
     },

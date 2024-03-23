@@ -1,31 +1,65 @@
 <script setup>
-import MaterialBar from '@/components/MaterialBar.vue';
-import NewMaterialForm from '@/components/NewMaterialForm.vue';
-import EditMaterialForm from '@/components/EditMaterialForm.vue';
-import { ref, computed, watch } from 'vue';
+import MaterialBar from '@/components/MaterialBar.vue'
+import NewMaterialForm from '@/components/NewMaterialForm.vue'
+import EditMaterialForm from '@/components/EditMaterialForm.vue'
+import { ref, computed, watch } from 'vue'
 
-const addingShowForm = ref(false);
-const editingShowForm = ref(false);
-const allMaterials = ref([
-  {
-    material: 'LEADED STEEL',
-    source: 'ALLOYS INC.',
-    amount: '20',
-    price: '10 ₱'
-  }
-]);
+// fetching data
+const API_URL = import.meta.env.VITE_API_URL + '/material'
+
+
+const addingShowForm = ref(false)
+const editingShowForm = ref(false)
+const allMaterials = ref(null)
+
+
 
 const searchQuery = ref('');
 const selectedMaterial = ref(null);
 
 const filteredMaterials = computed(() => {
-  return allMaterials.value.filter(material => {
-    return material.material.toLowerCase().includes(searchQuery.value.toLowerCase());
-  });
+  try{
+    return allMaterials.value.filter(material => {
+      return material.material.toLowerCase().includes(searchQuery.value.toLowerCase());
+    });
+  } catch (err) {
+    console.error(err)
+  }
 });
 
-const addMaterial = (newMaterial) => {
-  allMaterials.value.push(newMaterial);
+// Fetch GET request
+const getMaterials = async () => {
+  const response = await fetch(API_URL, {
+    method: "GET", // *GET, POST, PUT, DELETE, etc.
+    headers: {
+      "Content-Type": "application/json"}
+  }).then((res) => res.json())
+    .then((data) => {
+      allMaterials.value = data
+  }).catch(err => console.error(err))
+  console.log(response)
+}
+// Set up for the async functions
+getMaterials()
+
+// Fetch POST request
+const addMaterial = async (newMaterial) => {
+  
+  const response = await fetch(API_URL,{
+    method: "POST", // *GET, POST, PUT, DELETE, etc.
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(newMaterial)
+  }).then((res) => {
+    if (res.ok) {
+      allMaterials.value.push(newMaterial)
+    }
+    res.json()
+  })
+    .then((data) => console.log(data))
+    .catch(err => console.log(err))
+
   addingShowForm.value = false;
   editingShowForm.value = false;
 };
@@ -65,13 +99,15 @@ watch(searchQuery, () => {
     <div class="frame">
       <div class="itemDisplay">
         <MaterialBar class="index" material="Material" source="Source" price="Price / Unit" amount="Amount"></MaterialBar>
-        <MaterialBar class="item" v-for="material in filteredMaterials" :key="material.material"
-                      :material="material.material" :source="material.source" 
-                      :amount="material.amount" :price="material.price"
-                      @click="selectEditMaterial(material)"
-                      :class="{ 'highlighted': selectedMaterial === material }">
-        </MaterialBar>
+          <MaterialBar class="item" v-if="filteredMaterials" v-for="material in filteredMaterials" :key="material.material"
+                        :material="material.material" :source="material.source" 
+                        :amount="material.amount" :price="material.price"
+                        @click="selectEditMaterial(material)"
+                        :class="{ 'highlighted': selectedMaterial === material }">
+          </MaterialBar>
+          <div v-else></div>
       </div>
+      
       <div v-if="addingShowForm || editingShowForm">
         <NewMaterialForm v-if="addingShowForm" @submitMaterialForm="addMaterial" @cancelForm="cancelForm"></NewMaterialForm>
         <EditMaterialForm v-else-if="editingShowForm" :materialData="selectedMaterial" @submitMaterialForm="editMaterial" @cancelForm="cancelForm"></EditMaterialForm>
