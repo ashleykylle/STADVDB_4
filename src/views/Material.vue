@@ -18,12 +18,10 @@ const searchQuery = ref('');
 const selectedMaterial = ref(null);
 
 const filteredMaterials = computed(() => {
-  try{
+  if (allMaterials.value != null) {
     return allMaterials.value.filter(material => {
       return material.material.toLowerCase().includes(searchQuery.value.toLowerCase());
     });
-  } catch (err) {
-    console.error(err)
   }
 });
 
@@ -37,7 +35,6 @@ const getMaterials = async () => {
     .then((data) => {
       allMaterials.value = data
   }).catch(err => console.error(err))
-  console.log(response)
 }
 // Set up for the async functions
 getMaterials()
@@ -99,7 +96,7 @@ watch(searchQuery, () => {
     <div class="frame">
       <div class="itemDisplay">
         <MaterialBar class="index" material="Material" source="Source" price="Price / Unit" amount="Amount"></MaterialBar>
-          <MaterialBar class="item" v-if="filteredMaterials" v-for="material in filteredMaterials" :key="material.material"
+          <MaterialBar class="item" v-if="filteredMaterials" v-for="material in filteredMaterials" :key="material._id"
                         :material="material.material" :source="material.source" 
                         :amount="material.amount" :price="material.price"
                         @click="selectEditMaterial(material)"

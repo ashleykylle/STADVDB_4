@@ -7,12 +7,8 @@ export default {
           QuoteItemBar
      },
      setup() {
-          const quoteList = ref()
+          const quoteList = ref(null)
           const amount = 500 * 0.12
-
-
-
-          
           return {
                quoteList,
                amount
