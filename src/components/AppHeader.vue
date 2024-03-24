@@ -4,10 +4,10 @@
                <img class="logo" src="@/assets/images/img_logo_fabriquote.svg"> 
           </div>
           <div class="clickableHeader">
-               <dash_item><a href="/">Dashboard</a></dash_item>
-               <dash_item><a href="/quota">Quota</a></dash_item>
-               <dash_item><a href="/material">Material</a></dash_item>
-               <dash_item><a href="#">Settings</a></dash_item>
+               <RouterLink to="/">Dashboard</RouterLink>
+               <RouterLink to="/quota">Quota</RouterLink>
+               <RouterLink to="/material">Material</RouterLink>
+               <RouterLink to="#">Setting</RouterLink>
           </div>
      </div>
 </template>
@@ -35,9 +35,5 @@
      color: #014421;
      font-weight: bold;
      background: none;
-}
-
-dash_item {
-     display: flex;
 }
 </style>

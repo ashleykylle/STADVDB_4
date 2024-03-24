@@ -1,7 +1,26 @@
 <script>
-     import { ref } from 'vue';
-</script>
+import QuoteItemBar from '@/components/QuoteItemBar.vue'
+import { ref } from 'vue'
 
+export default {
+     components: {
+          QuoteItemBar
+     },
+     setup() {
+          const quoteList = ref()
+          const amount = 500 * 0.12
+
+
+
+          
+          return {
+               quoteList,
+               amount
+          }
+     }
+     
+}
+</script>
 <template>
      <div class="mainPage">
           <div class="pageHeader">
@@ -9,70 +28,14 @@
                <v-btn variant="outlined" class="button" disabled="true">History</v-btn>
           </div>
           <div class="frame">
-               <div class="item">
-                    <div class="right">
-                         <span class="date">01/01/24</span>
-                    </div>
-                    <div class="center">
-                         <div class="top"><span class="start">Client</span><span class="end">Total</span></div>
-                         <div class="mid"><span class="start">Company</span><span class="end">Sales Tax</span></div>
-                         <div class="bot"><span class="start">Sales Person</span><span class="end">Register ID</span></div>
-                    </div>
-                    <div class="left">
-                         <span class="link edit">Edit</span>
-                         <span class="link export">Export as PDF</span>
-                         <span class="link print">Print</span>
-                         <spand class="link delete">Delete</spand>
-                    </div>
-               </div>
-               <div class="item">
-                    <div class="right">
-                         <span class="date">01/01/24</span>
-                    </div>
-                    <div class="center">
-                         <div class="top"><span class="start">Client</span><span class="end">Total</span></div>
-                         <div class="mid"><span class="start">Company</span><span class="end">Sales Tax</span></div>
-                         <div class="bot"><span class="start">Sales Person</span><span class="end">Register ID</span></div>
-                    </div>
-                    <div class="left">
-                         <span class="link edit">Edit</span>
-                         <span class="link export">Export as PDF</span>
-                         <span class="link print">Print</span>
-                         <spand class="link delete">Delete</spand>
-                    </div>
-               </div>
-               <div class="item">
-                    <div class="right">
-                         <span class="date">01/01/24</span>
-                    </div>
-                    <div class="center">
-                         <div class="top"><span class="start">Client</span><span class="end">Total</span></div>
-                         <div class="mid"><span class="start">Company</span><span class="end">Sales Tax</span></div>
-                         <div class="bot"><span class="start">Sales Person</span><span class="end">Register ID</span></div>
-                    </div>
-                    <div class="left">
-                         <span class="link edit">Edit</span>
-                         <span class="link export">Export as PDF</span>
-                         <span class="link print">Print</span>
-                         <spand class="link delete">Delete</spand>
-                    </div>
-               </div>
-               <div class="item">
-                    <div class="right">
-                         <span class="date">01/01/24</span>
-                    </div>
-                    <div class="center">
-                         <div class="top"><span class="start">Client</span><span class="end">Total</span></div>
-                         <div class="mid"><span class="start">Company</span><span class="end">Sales Tax</span></div>
-                         <div class="bot"><span class="start">Sales Person</span><span class="end">Register ID</span></div>
-                    </div>
-                    <div class="left">
-                         <span class="link edit">Edit</span>
-                         <span class="link export">Export as PDF</span>
-                         <span class="link print">Print</span>
-                         <spand class="link delete">Delete</spand>
-                    </div>
-               </div>
+               <QuoteItemBar createdDate="01/01/2024" 
+                         client="Client" 
+                         company="Company" 
+                         salesPerson="Sales Person" 
+                         total=500 
+                         :salesTax=amount
+                         registerID="2adadnj">
+               </QuoteItemBar>
           </div>
      </div>
 
@@ -130,76 +93,5 @@
           border-radius: 25px;
      }
 
-     .item {
-          display: flex;
-          flex-direction: row;
-          min-height: 12em;
-          border-radius: 25px;
-          background-color: #E9E9E9;
-          background-clip: border-box;
-          margin-bottom: 2em;
-     }
-
-     .item:last-child {
-          margin-bottom: 0;
-     }
-
-     .item .right {
-          display: flex;
-          background-color: #B6B6B6;
-          width: 12%;
-          height: inherit;
-          border-top-left-radius: 25px;
-          border-bottom-left-radius: 25px;
-          justify-content: center;
-          align-items: center;
-     }
-
-     .item .date
-     {
-          font-size: 1.5em;
-          font-weight: bold;
-     }
-
-     .item .center {
-          display: flex;
-          width: 75%;
-          height: inherit;
-          padding: 0 2em;
-          margin: 1em 0;
-          border-right: 2px solid #D9D9D9;
-          justify-content: space-between;
-          flex-direction: column;
-     }
-
-     .item .center div {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          font-size: large;
-     }
-
-     .item .center .top span{
-          font-size: x-large;
-          font-weight: bold;
-     }
-
-     .item .left {
-          display: flex;
-          flex-direction: column;
-          width: 13%;
-          height: inherit;
-          align-items: center;
-          justify-content: center;
-     }
-
-     .item .left .link {
-          color:#355E3B;
-          font-size: 1.1em;
-          text-decoration: underline;
-          cursor: pointer;
-     }
-     .item .left .link.delete {
-          color:#DA2B2B;
-     }
+     
 </style>
