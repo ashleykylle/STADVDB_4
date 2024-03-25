@@ -7,11 +7,32 @@ export default {
           QuoteItemBar
      },
      setup() {
-          const quoteList = ref(null)
-          const amount = 500 * 0.12
+          // API resource
+          const API_URL = import.meta.env.VITE_API_URL + '/quota'
+          const quoteList = ref([
+               {
+                    _id: 1,
+                    createdDate: "01/01/2024",
+                    client: "Client",
+                    company: "Company",
+                    salesPerson: "Sales Person",
+                    total: 2132,
+                    registerID: "RegisterID"
+               }
+          ])
+
+          const getQuoteList = async() => {
+               const response = fetch(API_URL, {
+                    method: "GET",
+                    headers: {
+                         "Content-Type": "application/json"
+                    }
+               }).then()
+          }
+          const calculatedTax = 500 * 0.12
           return {
                quoteList,
-               amount
+               calculatedTax
           }
      }
      
@@ -24,13 +45,12 @@ export default {
                <v-btn variant="outlined" class="button" disabled="true">History</v-btn>
           </div>
           <div class="frame">
-               <QuoteItemBar createdDate="01/01/2024" 
-                         client="Client" 
-                         company="Company" 
-                         salesPerson="Sales Person" 
-                         total=500 
-                         :salesTax=amount
-                         registerID="2adadnj">
+               <QuoteItemBar v-if="quoteList" v-for="quote in quoteList" :key=quote._id
+                                   :_id="quote._id"
+                                   :createdDate="quote.createdDate"
+                                   :client="quote.client" :total="quote.total"
+                                   :company="quote.company" 
+                                   :salesPerson="quote.salesPerson" :registerID="quote.registerID">
                </QuoteItemBar>
           </div>
      </div>

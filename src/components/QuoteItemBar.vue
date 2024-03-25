@@ -1,6 +1,12 @@
 <script>
 export default {
-     props: ['createdDate', 'client', 'company', 'salesPerson','total', 'salesTax', 'registerID'],
+     props: ['_id','createdDate', 'client', 'company', 'salesPerson','total', 'registerID'],
+     setup(props) {
+          const salesTax = props.total * 0.12
+          return {
+               salesTax
+          }
+     }
 
 }
 </script>
@@ -10,15 +16,15 @@ export default {
                <span class="date">{{ createdDate }}</span>
           </div>
           <div class="center">
-               <div class="top"><span class="start">{{ client }}</span><span class="end">{{  total  }}</span></div>
-               <div class="mid"><span class="start">{{ company }}</span><span class="end">{{ salesTax }}</span></div>
+               <div class="top"><span class="start">{{ client }}</span><span class="end"> ₱ {{  total  }}</span></div>
+               <div class="mid"><span class="start">{{ company }}</span><span class="end"> ₱ {{ salesTax }}</span></div>
                <div class="bot"><span class="start">{{ salesPerson }}</span><span class="end">{{ registerID }}</span></div>
           </div>
           <div class="left">
                <span class="link edit">Edit</span>
                <span class="link export">Export as PDF</span>
                <span class="link print">Print</span>
-               <spand class="link delete">Delete</spand>
+               <span class="link delete">Delete</span>
           </div>
      </div>
 </template>
