@@ -11,6 +11,7 @@ import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
 import QuoteHistory from './views/QuoteHistory.vue'
 import QuotaCreate from './views/QuotaCreate.vue'
+import Account from './views/Account.vue'
 
 const vuetify = createVuetify({
   components,
@@ -23,7 +24,8 @@ const router = createRouter({
           {path: '/', name: 'Home', component: Home},
           {path:  '/quota', name: 'QuoteHistory', component: QuoteHistory},
           {path: '/createQuota', name:'QuotaCreate', component: QuotaCreate},
-          {path: '/material', name: 'Material', component: Material}
+          {path: '/material', name: 'Material', component: Material},
+          {path: '/account', name: 'Account', component: Account}
      ]
 })
 createApp(App)

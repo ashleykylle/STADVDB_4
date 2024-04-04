@@ -7,7 +7,7 @@
                <RouterLink to="/">Dashboard</RouterLink>
                <RouterLink to="/quota">Quota</RouterLink>
                <RouterLink to="/material">Material</RouterLink>
-               <RouterLink to="#">Setting</RouterLink>
+               <RouterLink to="/account">Account</RouterLink>
           </div>
      </div>
 </template>
