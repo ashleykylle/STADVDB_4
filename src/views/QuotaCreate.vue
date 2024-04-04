@@ -183,7 +183,7 @@
     color: white; 
     text-align: center; 
     padding: 20px 0; 
-    height: 50px; /
+    height: 50px;
 }
 
 .header h1 {

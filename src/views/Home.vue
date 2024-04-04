@@ -3,7 +3,7 @@
     
     <body>
       <div class="actionList">
-        <div> Create a Quota... </div>
+        <router-link to="/createQuota" class="routerlink"> Create a Quota... </router-link>
         <router-link to="/quota" class="routerlink"> Quota History...</router-link><div></div>
         <router-link to="/material" class="routerlink"> Material List...</router-link>
         <div> Add New Material...</div>
