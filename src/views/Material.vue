@@ -3,9 +3,9 @@ import MaterialBar from '@/components/MaterialBar.vue'
 import NewMaterialForm from '@/components/NewMaterialForm.vue'
 import EditMaterialForm from '@/components/EditMaterialForm.vue'
 import { ref, computed, watch } from 'vue'
+import { API_URL } from '@/api/api_url'
 
-// fetching data
-const API_URL = import.meta.env.VITE_API_URL + '/material'
+// fetching URL
 
 
 const addingShowForm = ref(false)
@@ -27,7 +27,7 @@ const filteredMaterials = computed(() => {
 
 // Fetch GET request
 const getMaterials = async () => {
-  const response = await fetch(API_URL, {
+  const response = await fetch(`${API_URL}/material`, {
     method: "GET", // *GET, POST, PUT, DELETE, etc.
     headers: {
       "Content-Type": "application/json"}
@@ -41,8 +41,7 @@ getMaterials()
 
 // Fetch POST request
 const addMaterial = async (newMaterial) => {
-  
-  const response = await fetch(API_URL,{
+  const response = await fetch(`${API_URL}/material`,{
     method: "POST", // *GET, POST, PUT, DELETE, etc.
     headers: {
       "Content-Type": "application/json"

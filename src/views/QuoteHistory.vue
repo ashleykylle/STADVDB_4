@@ -1,14 +1,13 @@
 <script>
 import QuoteItemBar from '@/components/QuoteItemBar.vue'
 import { ref } from 'vue'
+import { API_URL } from '@/api/api_url'
 
 export default {
      components: {
           QuoteItemBar
      },
      setup() {
-          // API resource
-          const API_URL = import.meta.env.VITE_API_URL + '/quota'
           const quoteList = ref([
                {
                     _id: 1,
@@ -22,7 +21,7 @@ export default {
           ])
 
           const getQuoteList = async() => {
-               const response = fetch(API_URL, {
+               const response = fetch(`${API_URL}/quote`, {
                     method: "GET",
                     headers: {
                          "Content-Type": "application/json"

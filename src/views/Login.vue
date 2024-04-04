@@ -8,7 +8,7 @@
         <h2>Login</h2>
         <form @submit.prevent="login" class="login-form">
           <div class="form-group">
-            <input type="text" id="username" v-model="username" placeholder="Username" required>
+            <input type="text" class="username" v-model="username" placeholder="Username" required>
           </div>
           <div class="form-group">
             <input type="password" id="password" v-model="password" placeholder="Password" required>
@@ -82,6 +82,7 @@ h2 {
 }
 
 input[type="text"],
+input[type="email"],
 input[type="password"] {
   width: 100%;
   padding: 10px;
