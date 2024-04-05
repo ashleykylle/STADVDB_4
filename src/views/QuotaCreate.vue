@@ -1,83 +1,75 @@
 <template>
-    <div>
-      <div class="header">
-        <h1>FabriQuote</h1>
+  <div class="mainContainer">
+    <div class="buttonContainer">
+      <v-btn variant="text" class="button" to="/">Create</v-btn>
+      <v-btn variant="text" class="button" disabled>History</v-btn>
+    </div>
+    <div class="formAndTableContainer">
+      <div class="input-container">
+        <label for="quotationRegisterId">Quotation Register ID:</label>
+        <input type="text" id="quotationRegisterId" v-model="quotationId">
       </div>
-  
-      <div class="beige-layer">
-        <a href="#" class="link">Dashboard</a>
-        <a href="#" class="link">Quota</a>
-        <a href="#" class="link">Materials</a>
-        <a href="#" class="link">Settings</a>
+      <div class="input-container">
+        <label for="salesPerson">Sales Person:</label>
+        <input type="text" id="salesPerson" v-model="salesPerson">
       </div>
-  
-      <div class="buttons">
-        <button class="button" id="createButton" @click="toggleButton($event)">Create</button>
-        <button class="button" id="historyButton" @click="toggleButton($event)">History</button>
+      <div class="input-container">
+        <label for="dates">Dates:</label>
+        <input type="text" id="dates" v-model="quotationDates">
       </div>
-  
-      <div class="big-box" v-show="activeTab === 'create'">
-        <div class="input-container">
-    <label for="quotationRegisterId">Quotation Register ID:</label>
-    <input type="text" id="quotationRegisterId" name="quotationRegisterId">
-</div>
-<div class="input-container">
-    <label for="salesPerson">Sales Person:</label>
-    <input type="text" id="salesPerson" name="salesPerson">
-</div>
-<div class="input-container">
-    <label for="dates">Dates:</label>
-    <input type="text" id="dates" name="dates">
-</div>
-<div class="input-row" id="clientInputs">
-  <div class="input-container">
-      <label for="client">Client:</label>
-      <input type="text" id="client" name="client">
-  </div>
-  <div class="input-container">
-      <label for="clientCompany">Client Company:</label>
-      <input type="text" id="clientCompany" name="clientCompany">
-  </div>
-  <div class="input-container">
-      <label for="clientEmail">Client Email:</label>
-      <input type="email" id="clientEmail" name="clientEmail">
-  </div>
-</div>
-<div class="input-row" id="clientContactInputs">
-  <div class="input-container">
-      <label for="clientContactNumber">Client Contact Number:</label>
-      <input type="text" id="clientContactNumber" name="clientContactNumber">
-  </div>
-  <div class="input-container">
-      <label for="clientAddress">Client Address:</label>
-      <input type="text" id="clientAddress" name="clientAddress">
-  </div>
-  <div class="options">
-    <button id="saveButton">Save</button>
-    <button id="exportPdfButton">Export as PDF</button>
-    <button id="printButton">Print</button>
-  </div>
-</div>
-<table id="itemTable">
-  <thead>
-      <tr>
-          <th>Item#</th>
-          <th>Item Name</th>
-          <th>Quantity</th>
-          <th>Unit Price</th>
-      </tr>
-  </thead>
-  <tbody>
-  </tbody>
-</table>
-<div class="add-item-container">
-  <input type="text" id="addItemInput" placeholder="Add item..." class="add-item-input">
-  <button id="addItemButton" class="add-item-button">Add</button>
-</div>
-<div class="quantity-container">
-  <input type="text" id="quantityInput" placeholder="Quantity" class="quantity-input">
-</div>
-<div class="user-input-container">
+      <div class="input-container input-container4">
+        <label for="client">Client:</label>
+        <input type="text" id="client" v-model="client">
+      </div>
+      <div class="input-container input-container5">
+        <label for="clientCompany">Client Company:</label>
+        <input type="text" id="clientCompany" v-model="clientCompany">
+      </div>
+      <div class="input-container input-container6">
+        <label for="clientEmail">Client Email:</label>
+        <input type="email" id="clientEmail" v-model="clientEmail">  </div>
+        <div class="input-container input-container7">
+        <label for="clientContactNumber">Contact Number:</label>
+        <input type="tel" id="clientContactNumber" v-model="clientContactNumber">  </div>
+      <div class="input-container input-container8">
+        <label for="clientAddress">Client Address:</label>
+        <input type="text" id="clientAddress" v-model="clientAddress"></div>
+        <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Item#</th>
+              <th>Item Name</th>
+              <th>Quantity</th>
+              <th>Unit Price</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tbody>
+  <tr>
+    <td>1</td>
+    <td>Stapler</td>
+    <td>5</td>
+    <td>$10.00</td>
+  </tr>
+  <tr>
+    <td>2</td>
+    <td>Pens</td>
+    <td>12</td>
+    <td>$2.50</td>
+  </tr>
+</tbody>
+            </tbody>
+        </table>
+      </div>
+      <div class="add-item-container">
+        <input type="text" id="add-item-input" placeholder="Add item..." />
+      </div>
+      <div class="quantity-item-container">
+        <input type="number" id="quantity-input" placeholder="Quantity" min="1" />
+      </div>
+      <button class="add-button" @click="addItem">Add</button>  
+      <div class="user-input-container">
   <div class="user-input-item">
       <label for="subtotal">Subtotal:</label>
       <input type="text" id="subtotal" class="rounded-input">
@@ -96,253 +88,161 @@
   </div>
 </div>
       </div>
-  
-      <div class="history-content" v-show="activeTab === 'history'">
-        <h2>History Tab Content</h2>
-      </div>
-    </div>
-  </template>
-  
-  <script>
-  export default {
-  mounted() {
-    this.initializeEventListeners();
-    this.addRow('001', 'Product A', 10, '$20.00');
-    this.addRow('002', 'Product B', 5, '$15.00');
-    this.addRow('003', 'Product C', 10, '$30.00');
-    this.addRow('004', 'Product D', 5, '$5.00');
-  },
-  methods: {
-    initializeEventListeners() {
-      const links = document.querySelectorAll('.link');
-      links.forEach(link => {
-        link.addEventListener('click', event => {
-          event.preventDefault();
-          links.forEach(link => link.classList.remove('active'));
-          event.target.classList.add('active');
-        });
-      });
+  </div>
+</template> 
 
-      const createButton = document.getElementById('createButton');
-      const historyButton = document.getElementById('historyButton');
-      createButton.addEventListener('click', () => this.toggleButton(createButton));
-      historyButton.addEventListener('click', () => this.toggleButton(historyButton));
-
-      document.getElementById('addItemButton').addEventListener('click', () => {
-        const itemName = document.getElementById('addItemInput').value;
-        const quantity = document.getElementById('quantityInput').value;
-        this.addRowToTable(itemName, quantity);
-      });
-
-      document.getElementById('printButton').addEventListener('click', () => window.print());
-    },
-    toggleButton(button) {
-      document.querySelectorAll('.button').forEach(btn => btn.classList.remove('active'));
-      button.classList.add('active');
-    },
-    addRowToTable(itemName, quantity) {
-      const tableBody = document.querySelector('#itemTable tbody');
-      const newRow = document.createElement('tr');
-      newRow.innerHTML = `
-        <td>${this.currentItemId++}</td>
-        <td>${itemName}</td>
-        <td>${quantity}</td>
-        <td></td> <!-- Empty cell for Unit Price -->
-      `;
-      tableBody.appendChild(newRow);
-    },
-    addRow(itemNumber, itemName, quantity, unitPrice) {
-      const tableBody = document.querySelector('#itemTable tbody');
-      const newRow = document.createElement('tr');
-      newRow.innerHTML = `
-        <td>${itemNumber}</td>
-        <td>${itemName}</td>
-        <td>${quantity}</td>
-        <td>${unitPrice}</td>
-      `;
-      tableBody.appendChild(newRow);
-    }
-  },
+<script>
+export default {
   data() {
     return {
-      currentItemId: 1
-    };
+      quotationId: '',
+      salesPerson: '',
+      quotationDates: '',
+      client: '',
+      clientCompany: '',
+      clientEmail: '',
+    }   
   }
 };
-  </script>
-  
-  <style scoped>
-  
-* {
-    margin: 0;
-    padding: 0;
+</script>
+
+
+
+
+<style scoped>
+.mainContainer {
+  display: flex; 
+  flex-direction: column; 
 }
 
-.header {
-    background-color: green; 
-    color: white; 
-    text-align: center; 
-    padding: 20px 0; 
-    height: 50px;
+.buttonContainer {
+  display: flex;
+  justify-content: space-around;
+  width: 13%;
+  margin-left: 92px;
+  margin-top: 20px;
 }
 
-.header h1 {
-    font-size: 52px; 
-    font-weight: bold; 
-}
-
-.beige-layer {
-    background-color: beige; 
-    height: 70px; 
-    padding-top: 40px;
-    padding-left: 400px; 
-    display: flex; 
-    flex-direction: row; 
-}
-.link {
-    color: black; 
-    text-decoration: none; 
-    font-size: 28px; 
-    margin: 0 110px; 
-}
-
-.link:hover {
-    text-decoration: underline; 
-}
-.link.active {
-    color: green; 
-}
-
-.link.active::before {
-    content: '\25A0'; 
-    margin-right: 5px; 
-}
 .button {
-    border: 2px solid black;
-    background-color: #f0f0f0; 
-    padding: 10px 20px; 
-    font-size: 16px; 
-    cursor: pointer; 
-    border-radius: 10px; 
-    margin-right: 10px; 
+  background-color: aliceblue;
+  border: 2px solid black;
+  border-radius: 7px;
+  cursor: pointer;
 }
 
-.button.active {
-    background-color: green; 
-    color: white; 
-}
-.buttons {
-    margin-top: 20px; 
-    margin-left: 100px;
+.button:disabled {
+  opacity: 0.5;
+  cursor: default;
 }
 
-.big-box {
-    background-color: #f0f0f0; 
-    padding: 20px; 
-    border: 2px solid black; 
-    border-radius: 10px; 
-    margin-top: 20px; 
-    margin-left: 100px;
-    width: 90%; 
-    min-height: 1000px; 
-    overflow-y: auto; 
-    margin-bottom: -100px; 
+.formAndTableContainer {
+  background-color: rgb(228, 226, 226); 
+  border: 1px solid black; 
+  padding: 10px; 
+  margin-top: 20px; 
+  margin-left: 100px;
+  width: 1500px; 
+  height: 900px; 
+  border-radius: 5px; 
 }
+
 .input-container {
-    margin-bottom: 15px; 
+  margin-bottom: 10px; 
+  margin-left: 10px;
+  text-align: left; 
 }
-
 .input-container label {
-    display: block; 
-    margin-bottom: 5px; 
+  color: black;
+  display: block;
+  width: 150px; 
+  margin-right: 10px; 
+  
 }
-
 .input-container input {
-    width: 20%; 
-    padding: 10px; 
+    width: 300px;
+    height: 30px;
     border: none; 
-    background-color: #dcdcdc; 
+    background-color: #cbcbcb; 
     border-radius: 5px; 
 }
-#clientInputs {
-    padding-left: 470px; 
-    margin-top: -220px;
+
+.input-container4{
+  margin-top: -190px;
+  margin-left: 400px; 
 }
-#client, #clientCompany, #clientEmail {
-    width: 25%; 
+.input-container5{
+  margin-bottom: 190px;
+  margin-left: 400px; 
 }
-#clientContactInputs{
-    width: 100%;
-    padding-left: 970px; 
-    margin-top: -220px;
+.input-container6{
+  margin-top: -180px;
+  margin-left: 400px; 
 }
-#clientAddress{
-    height: 100px;
+.input-container7{
+  margin-top: -190px;
+  margin-left: 800px; 
+}
+.input-container8{
+  margin-bottom: -100px;
+  margin-left: 800px; 
+ 
+}
+.input-container8 input{
+  width: 300px; 
+  height: 100px; 
+}
+table {
+  border-collapse: collapse; 
+  width: 100%;
 }
 
-#itemTable {
-    width: 100%; 
-    border-collapse: collapse; 
-    margin-top: 120px;
+th, td {
+  border: 2px solid black; 
+  padding: 5px; 
+  text-align: left; 
 }
-
-#itemTable th {
-    border: 1px solid #000; 
-    padding: 8px; 
+th{
+  text-align: center;
 }
-
-#itemTable td {
-    border: 1px solid #000; 
-    padding: 8px; 
+.table-container {
+  margin-top: 150px;
+  margin-left: 5px; 
 }
-#itemTable tbody tr:nth-child(even) {
-    background-color: #dddddd; 
+#add-item-input{
+  width: 400px;
+  background-color: white; 
+  border: 1px solid #ccc; 
+  border-radius: 10px; 
+  padding: 5px; 
+  margin-top: 20px;
+  margin-left: -845px;
+  margin-right: 210px; /
 }
-.add-item-container {
-    display: flex; 
-    align-items: center; 
+#quantity-input {
+  background-color: white; 
+  border: 1px solid #ccc; 
+  border-radius: 10px; 
+  padding: 5px; 
+  margin-left: -1270px;
+  margin-top: 10px;
 }
-
-.add-item-input {
-    padding: 10px; 
-    border: 1px solid #ccc; 
-    border-radius: 10px; 
-    margin-right: 10px; 
-    margin-top: -25px;
-    width: 30%;
+.add-button {
+  width: 100px;
+  background-color: green; 
+  color: white; 
+  border: none; 
+  padding: 5px 10px; 
+  cursor: pointer; 
+  border-radius: 5px; 
+  margin-right: 760px;
+  position: relative; 
+  top: -35px;
 }
-
-.add-item-button {
-    background-color: #4CAF50; 
-    color: white; 
-    border: none; 
-    padding: 10px 20px; 
-    border-radius: 10px; 
-    cursor: pointer; 
-    margin-left: -100px; 
-    margin-top: 74px;
-    width: 5%;
-}
-
-.add-item-button:hover {
-    background-color: #45a049; 
-}
-.quantity-container {
-    margin-top: -26px; 
-}
-.quantity-input {
-    width: 20%; 
-    padding: 10px; 
-    border: 1px solid #ccc;
-    border-radius: 10px; 
-    font-size: 14px; 
-    margin-top: -94px;
-}
-
 .user-input-container {
     display: flex; 
-    margin-top: -70px; 
-    margin-left: 900px;
+    margin-top: -110px; 
+    margin-left: 500px;
+    text-align: left;
 }
 
 .user-input-item {
@@ -356,34 +256,10 @@
 }
 
 .rounded-input {
-    width: 50%; 
+    width: 80%; 
     padding: 10px;
     background-color: #c9c8c8;
     border: 1px solid #7d7d7d; 
     border-radius: 9px; 
 }
-
-.options {
-    margin-top: -170px;
-    margin-bottom: 10px; 
-    margin-left: 600px;
-}
-
-.options button {
-    font-size: 25px;
-    display: flex; 
-    flex-direction: row;
-    background-color: transparent; 
-    border: none; 
-    color: green; 
-    text-decoration: underline; 
-    cursor: pointer; 
-    margin-top: 10px;
-}
-
-
-.options button:hover {
-    color: darkgreen; 
-}
-  </style>
-  
+</style>
