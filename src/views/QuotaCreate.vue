@@ -216,7 +216,7 @@ th{
   padding: 5px; 
   margin-top: 20px;
   margin-left: -845px;
-  margin-right: 210px; /
+  margin-right: 210px;
 }
 #quantity-input {
   background-color: white; 
