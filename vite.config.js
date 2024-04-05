@@ -14,7 +14,7 @@ export default defineConfig({
     }
   },
   define: {
-    __APP_ENV__: process.env.APP_ENV,
+    __APP_ENV__: process.env.VITE_VERCEL_ENV,
   }
 })
 /**
