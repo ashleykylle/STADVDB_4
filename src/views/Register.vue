@@ -31,7 +31,7 @@ const submitRegister = async () => {
                     if (!res.ok) {
                          failedMessage.value = res.text()
                     } else {
-                         router.replace('/login')
+                         router.replace('/account')
                     }
                })
                .then((data) => console.log(data))
