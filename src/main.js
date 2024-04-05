@@ -28,7 +28,7 @@ const router = createRouter({
           {path:  '/quota', name: 'QuoteHistory', component: QuoteHistory},
           {path: '/createQuota', name:'QuotaCreate', component: QuotaCreate},
           {path: '/material', name: 'Material', component: Material},
-          {path: '/login', name: 'Login', component: Login},
+          {path: '/account', name: 'Login', component: Login},
           {path: '/register', name: 'Register', component: Register}
      ]
 })
